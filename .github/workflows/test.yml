@@ -39,4 +39,4 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a contains script that should return true
         run: |
-          echo "${{ !contains("1.2.3-rc1", 'rc') }}"
+          echo "${{ !contains('1.2.3-rc1', 'rc') }}"
