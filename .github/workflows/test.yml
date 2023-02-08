@@ -35,10 +35,14 @@ jobs:
         
       # Runs a single command using the runners shell
       - name: Print tag
-        run: echo "if I got a tag, imma print it ${{ steps.ver.outputs.tag }}"
+        env:
+          TAG_OUTPUT: ${{ steps.ver.outputs.tag }}
+        run: echo "if I got a tag, imma print it $TAG_OUTPUT"
         
       - name: Prints tag if tag is an RC
-        run: echo "Is this tag an RC? ${{ contains(steps.ver.outputs.tag, 'rc') }}"
+        env:
+          IS_RC: ${{ contains(steps.ver.outputs.tag, 'rc') }}
+        run: echo "Is this tag an RC? $IS_RC"
         
       - name: Set output of should run Snyk
         id: is_prod_release
