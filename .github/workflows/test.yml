@@ -32,7 +32,7 @@ jobs:
         
       # Runs a single command using the runners shell
       - name: Print tag
-        run: echo ${ steps.ver.outputs.tag }
+        run: echo "if I got a tag, imma print it ${{ steps.ver.outputs.tag }}"
         
       - name: Prints tag if tag is an RC
         run: echo "Is this tag an RC? ${{ contains('steps.ver.outputs.tag', 'rc') }}"
