@@ -21,7 +21,7 @@ jobs:
         id: generate-output
         run: echo "{tag}=${GITHUB_REF#refs/tags/} >> $GITHUB_OUTPUT"
     outputs:
-      foo1-output: ${{ steps.generate-output.outputs.bar-output }}
+      foo1-output: ${{ steps.generate-output.outputs.tag }}
   foo2:
     needs: foo1
     runs-on: ubuntu-latest
