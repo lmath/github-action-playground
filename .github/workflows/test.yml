@@ -32,15 +32,15 @@ jobs:
         
       # Runs a single command using the runners shell
       - name: Print tag
-        run: echo "${{ steps.ver.outputs.tag }}
+        run: echo "${{ steps.ver.outputs.tag }}"
         
       - name: Prints tag if tag is an RC
-        run: echo "Is this tag an RC? ${{ !contains('steps.ver.outputs.tag', 'rc') }}
+        run: echo "Is this tag an RC? ${{ !contains('steps.ver.outputs.tag', 'rc') }}"
         
       - name: Set output of should run Snyk
-        run: echo "{run_snyk}=${{ !contains('steps.ver.outputs.tag', 'rc') }}
+        run: echo "{run_snyk}=${{ !contains('steps.ver.outputs.tag', 'rc') }}"
       - name: Print should run
-        run: echo "${{ steps.ver.outputs.run_snyk }}
+        run: echo "${{ steps.ver.outputs.run_snyk }}"
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
