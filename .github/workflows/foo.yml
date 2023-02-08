@@ -1,0 +1,33 @@
+
+name: foo bar
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    tags:
+      - '*'
+    branches: 
+      - '*'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  foo1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: generate output
+        id: generate-output
+        run: echo "::set-output name=bar-output::$(echo 1)"
+    outputs:
+      foo1-output: ${{ steps.generate-output.outputs.bar-output }}
+  foo2:
+    needs: foo1
+    runs-on: ubuntu-latest
+    if: ${{ needs.foo1.outputs.foo1-output != 0 }}
+    steps:
+      - name: print foo1 output
+        env:
+          foo1_OUTPUT: ${{ needs.foo1.outputs.foo1-output }}
+        run: echo "$foo1_OUTPUT"
