@@ -7,13 +7,15 @@ on:
   push:
     tags:
       - '*'
-
+env:
+  TAG_NAME: ${{ github.ref_name }}
+  
   # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+# workflow_dispatch:
 
 jobs:
   foo1:
-    if: ${{ !contains(${{ github.ref_name }}, 'rc') }}
+    if: ${{ $TAG_NAME, 'rc') }}
     runs-on: ubuntu-latest
     steps:
       - name: generate output
