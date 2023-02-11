@@ -16,6 +16,10 @@ jobs:
     if: ${{ !contains(github.ref, 'rc') }}
     runs-on: ubuntu-latest
     steps:
+      - name: GitHub Tag Name example
+        run: |
+         echo "Tag name from github.ref_name: ${{  github.ref_name }}"
+         echo "Tag name from github.ref: ${{  github.ref }}"
       - name: generate output
         id: generate-output
 #         run: echo "::set-output name=tag::${GITHUB_REF#refs/tags/}"
