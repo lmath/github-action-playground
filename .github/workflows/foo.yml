@@ -26,7 +26,7 @@ jobs:
   foo2:
     needs: foo1
     runs-on: ubuntu-latest
-    if: ${{ !contains(needs.foo1.outputs.foo1-output, 'rc') }}
+#     if: ${{ !contains(needs.foo1.outputs.foo1-output, 'rc') }}
     steps:
       - name: print foo1 output
         env:
