@@ -19,7 +19,8 @@ jobs:
     steps:
       - name: generate output
         id: generate-output
-        run: echo "{tag}=${GITHUB_REF#refs/tags/} >> $GITHUB_OUTPUT"
+        run: echo "::set-output name=tag::${GITHUB_REF#refs/tags/}"
+#         run: echo "{tag}=${GITHUB_REF#refs/tags/} >> $GITHUB_OUTPUT"
     outputs:
       foo1-output: ${{ steps.generate-output.outputs.tag }}
   foo2:
