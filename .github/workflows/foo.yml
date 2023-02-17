@@ -21,7 +21,7 @@ jobs:
          echo "Tag name from github.ref_name: ${{  github.ref_name }}"
          echo "Tag name from github.ref: ${{  github.ref }}"
       - name: Just prints if the if condition passes
-        if: contains('abc', 'z')
+        if: false
         run: echo 'hello world!'
       - name: generate output
         id: generate-output
