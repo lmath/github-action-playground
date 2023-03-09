@@ -13,6 +13,16 @@ on:
 
 jobs:
   foo1:
+    strategy:
+      matrix:
+        platform:
+          - kinesis
+          - sqs
+          - pubsub
+          - kafka
+          - nsq
+          - stdout
+          - rabbitmq
     if: ${{ !contains(github.ref, 'rc') }}
     runs-on: ubuntu-latest
     steps:
@@ -20,22 +30,12 @@ jobs:
         run: |
          echo "Tag name from github.ref_name: ${{  github.ref_name }}"
          echo "Tag name from github.ref: ${{  github.ref }}"
+      - name: Check if Snyk should run
+        id: shouldRunSnyk
+        run: echo "{shouldRunSnyk}={contains(github.ref_name, 'rc') && contains(fromJson('["kinesis", "pubsub"]'), matrix.platform)}" >> $GITHUB_OUTPUT
+      - name: Prints what shouldrunsnyk is
+        id: boolPrinter
+        run: echo "${{ steps.shouldRunSnyk.outputs.shouldRunSnyk }}"
       - name: Just prints if the if condition passes
-        if: false
+        if: ${{ steps.shouldRunSnyk.outputs.shouldRunSnyk }}
         run: echo 'hello world!'
-      - name: generate output
-        id: generate-output
-#         run: echo "::set-output name=tag::${GITHUB_REF#refs/tags/}"
-        run: echo "tag=${{ github.ref_name }}" >> $GITHUB_OUTPUT
-#         run: echo "{tag}=${GITHUB_REF#refs/tags/} >> $GITHUB_OUTPUT"
-    outputs:
-      foo1-output: ${{ steps.generate-output.outputs.tag }}
-  foo2:
-    needs: foo1
-    runs-on: ubuntu-latest
-#     if: ${{ !contains(needs.foo1.outputs.foo1-output, 'rc') }}
-    steps:
-      - name: print foo1 output
-        env:
-          foo1_OUTPUT: ${{ needs.foo1.outputs.foo1-output }}
-        run: echo "$foo1_OUTPUT"
