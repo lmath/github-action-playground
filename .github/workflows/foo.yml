@@ -36,7 +36,7 @@ jobs:
         id: shouldRunSnyk
         run: echo $RUN_SNYK
       - name: Just prints if the if condition passes
-        if: env.RUN_SNYK
+        if: env.RUN_SNYK == true
         run: echo 'hello world! the env var has been checked'
       - name: Just prints if the MANUAL if condition passes
         if: ${{ !contains(github.ref_name, 'rc') && contains(fromJson('["kinesis", "pubsub"]'), matrix.platform) }}
