@@ -24,6 +24,8 @@ jobs:
           - stdout
           - rabbitmq
     if: ${{ !contains(github.ref, 'rc') }}
+    env: 
+      RUN_SNYK: ${{ !contains(github.ref_name, 'rc') && contains(fromJson('["kinesis", "pubsub"]'), matrix.platform) }}
     runs-on: ubuntu-latest
     steps:
       - name: GitHub Tag Name example
@@ -32,13 +34,10 @@ jobs:
          echo "Tag name from github.ref: ${{  github.ref }}"
       - name: Check if Snyk should run
         id: shouldRunSnyk
-        run: echo "{shouldRunSnyk}={!contains(github.ref_name, 'rc') && contains(fromJson('["kinesis", "pubsub"]'), matrix.platform)}" >> $GITHUB_OUTPUT
-      - name: Prints what shouldrunsnyk is
-        id: boolPrinter
-        run: echo "${{ steps.shouldRunSnyk.outputs.shouldRunSnyk }}"
+        run: echo $RUN_SNYK
       - name: Just prints if the if condition passes
-        if: ${{ steps.shouldRunSnyk.outputs.shouldRunSnyk }}
-        run: echo 'hello world!'
+        if: $RUN_SNYK
+        run: echo 'hello world! the env var has been checked'
       - name: Just prints if the MANUAL if condition passes
         if: ${{ !contains(github.ref_name, 'rc') && contains(fromJson('["kinesis", "pubsub"]'), matrix.platform) }}
-        run: echo 'hello world!'
+        run: echo 'hello world! the manual check is workin'
