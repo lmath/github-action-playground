@@ -41,15 +41,13 @@ jobs:
       - name: Check if Snyk should run
         id: shouldRunSnyk
         run: echo $RUN_SNYK
-      - name: Just prints if the if condition passes
-        if: fromJSON(env.RUN_SNYK)
-        run: echo 'hello world! the env var has been checked'
-      - name: Just prints if the if condition passes based on env double eqs
-        if: ${{ env.RUN_SNYK == false }}
-        run: echo 'hello world! the env var has been checked'
-      - name: Just prints if the MANUAL if condition passes
-        if: ${{ !contains(github.ref_name, 'rc') && contains(fromJson('["kinesis", "pubsub"]'), matrix.platform) }}
-        run: echo 'hello world! the manual check is workin'
+      - name: Get current version
+        id: ver
+        run: |
+          export PROJECT_VERSION=$(25)
+          echo "{project_version}={}" "::set-output name=project_version::$PROJECT_VERSION"
+      - name: Print prohject versipon plz
+        run: echo ${{ steps.ver.outputs.project_version }}
       - name: Just prints if the MATRIX if condition passes
         if: matrix.run_snyk
         run: echo 'hello world! the matrix check is workin'
