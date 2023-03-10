@@ -45,7 +45,7 @@ jobs:
         id: ver
         run: |
           export PROJECT_VERSION=25
-          echo "{project_version}={}" "::set-output name=project_version::$PROJECT_VERSION"
+          echo "::set-output name=project_version::$PROJECT_VERSION"
       - name: Print prohject versipon plz
         run: echo ${{ steps.ver.outputs.project_version }}
       - name: Just prints if the MATRIX if condition passes
