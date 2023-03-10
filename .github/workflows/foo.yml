@@ -32,6 +32,7 @@ jobs:
 #     if: ${{ !contains(github.ref, 'rc') }}
     env: 
       RUN_SNYK: ${{ !contains(github.ref_name, 'rc') && contains(fromJson('["kinesis", "pubsub"]'), matrix.platform) }}
+      PROJECT_VERSION: 25
     runs-on: ubuntu-latest
     steps:
       - name: GitHub Tag Name example
@@ -41,12 +42,18 @@ jobs:
       - name: Check if Snyk should run
         id: shouldRunSnyk
         run: echo $RUN_SNYK
-      - name: Get current version
+      - name: Set current version github env
         id: ver
+        run: echo "{project_version}=$PROJECT_VERSION" >> GITHUB_STATE
+        env: 
+          PROJECT_VERSION: 25
+ #         echo "::set-output name=project_version::env.PROJECT_VERSION"       
+      - name: Get current version bash env
+        id: verr
         run: |
           export PROJECT_VERSION=25
           echo "{project_version}=$PROJECT_VERSION" >> GITHUB_STATE
- #         echo "::set-output name=project_version::$PROJECT_VERSION"
+ #         echo "::set-output name=project_version::env.PROJECT_VERSION"
       - name: Print prohject versipon plz
         run: echo ${{ steps.ver.outputs.project_version }}
       - name: Just prints if the MATRIX if condition passes
