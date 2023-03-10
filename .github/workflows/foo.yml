@@ -23,6 +23,12 @@ jobs:
           - nsq
           - stdout
           - rabbitmq
+        include:
+          - run_snyk: false
+          - platform: kinesis
+            run_snyk: true
+          - platform: pubsub
+            run_snyk: true
     if: ${{ !contains(github.ref, 'rc') }}
     env: 
       RUN_SNYK: ${{ !contains(github.ref_name, 'rc') && contains(fromJson('["kinesis", "pubsub"]'), matrix.platform) }}
@@ -44,3 +50,6 @@ jobs:
       - name: Just prints if the MANUAL if condition passes
         if: ${{ !contains(github.ref_name, 'rc') && contains(fromJson('["kinesis", "pubsub"]'), matrix.platform) }}
         run: echo 'hello world! the manual check is workin'
+      - name: Just prints if the MATRIX if condition passes
+        if: ${{ matrix.run_snyk}}
+        run: echo 'hello world! the matrix check is workin'
