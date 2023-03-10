@@ -48,12 +48,12 @@ jobs:
         env: 
           PROJECT_VERSION: 25
  #         echo "::set-output name=project_version::env.PROJECT_VERSION"       
-      - name: Get current version bash env
-        id: verr
-        run: |
-          export PROJECT_VERSION=25
-          echo "{project_version}=$PROJECT_VERSION" >> GITHUB_STATE
- #         echo "::set-output name=project_version::env.PROJECT_VERSION"
+#       - name: Get current version bash env
+#         id: verr
+#         run: |
+#           export PROJECT_VERSION=25
+#           echo "{project_version}=$PROJECT_VERSION" >> GITHUB_STATE
+#  #         echo "::set-output name=project_version::env.PROJECT_VERSION"
       - name: Print prohject versipon plz
         run: echo ${{ steps.ver.outputs.project_version }}
       - name: Just prints if the MATRIX if condition passes
