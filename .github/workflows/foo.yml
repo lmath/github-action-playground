@@ -24,7 +24,7 @@ jobs:
           - stdout
           - rabbitmq
         include:
-          - run_snyk: false
+#           - run_snyk: false
           - platform: kinesis
             run_snyk: true
           - platform: pubsub
