@@ -51,5 +51,5 @@ jobs:
         if: ${{ !contains(github.ref_name, 'rc') && contains(fromJson('["kinesis", "pubsub"]'), matrix.platform) }}
         run: echo 'hello world! the manual check is workin'
       - name: Just prints if the MATRIX if condition passes
-        if: ${{ matrix.run_snyk}}
+        if: matrix.run_snyk
         run: echo 'hello world! the matrix check is workin'
