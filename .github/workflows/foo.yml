@@ -47,6 +47,11 @@ jobs:
         run: echo "project_version=$PROJECT_VERSION" >> $GITHUB_OUTPUT
         env: 
           PROJECT_VERSION: $(date)
+      - name: Get current date
+        id: date
+        run: |
+          export PROJECT_VERSION=$(date)
+          echo "::set-output name=project_version::$PROJECT_VERSION"
  #         echo "::set-output name=project_version::env.PROJECT_VERSION"       
 #       - name: Get current version bash env
 #         id: verr
@@ -56,6 +61,8 @@ jobs:
 #  #         echo "::set-output name=project_version::env.PROJECT_VERSION"
       - name: Print prohject versipon plz
         run: echo ${{ steps.ver.outputs.project_version }}
+      - name: Print date plz
+        run: echo ${{ steps.date.outputs.project_version }}
       - name: Just prints if the MATRIX if condition passes
         if: matrix.run_snyk
         run: echo 'hello world! the matrix check is workin'
