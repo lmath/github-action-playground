@@ -46,7 +46,7 @@ jobs:
         id: ver
         run: echo "project_version=$PROJECT_VERSION" >> $GITHUB_OUTPUT
         env: 
-          PROJECT_VERSION: 25
+          PROJECT_VERSION: $(date)
  #         echo "::set-output name=project_version::env.PROJECT_VERSION"       
 #       - name: Get current version bash env
 #         id: verr
